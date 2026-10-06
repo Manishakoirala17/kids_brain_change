@@ -56,7 +56,6 @@ export function TodayScreen() {
     }
     speech.say(greeting(kid.name, broken), { onStart: markGreeted, onBlocked: () => setNeedsTap(true) });
     // Only re-run when the kid or the day changes, not on every tick.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kid.id, today]);
 
   const sayHello = () => {

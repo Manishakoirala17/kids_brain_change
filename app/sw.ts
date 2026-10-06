@@ -1,0 +1,27 @@
+import { defaultCache } from "@serwist/next/worker";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  // Static export pages are served as /awards.html etc.
+  precacheOptions: { cleanURLs: true },
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+  // Offline and not precached? Fall back to the home screen.
+  fallbacks: {
+    entries: [{ url: "/", matcher: ({ request }) => request.destination === "document" }],
+  },
+});
+
+serwist.addEventListeners();

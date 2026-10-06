@@ -21,7 +21,7 @@ export function StreakCard({ streak, best, week }: { streak: number; best: numbe
         <span key={streak} className="animate-pop text-7xl font-black leading-none text-accent tabular-nums">
           {streak}
         </span>
-        <span className="text-xl font-extrabold text-muted">{streak === 1 ? "day streak" : "day streak"}</span>
+        <span className="text-xl font-extrabold text-muted">day streak</span>
       </p>
       <p className="mt-1 text-base font-bold text-muted">
         🏆 Best: <span className="text-ink">{best}</span> {best === 1 ? "day" : "days"}
