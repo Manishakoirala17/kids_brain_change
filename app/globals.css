@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* Each kid gets their own accent; components use bg-accent / text-accent / bg-accent-soft. */
+:root {
+  --accent: #6c5ce7;
+  --accent-soft: #eeebff;
+  --accent-ink: #4a3bc4;
+}
+[data-kid="1"] {
+  --accent: #f26b3a;
+  --accent-soft: #ffece3;
+  --accent-ink: #b8461d;
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+}
+
+@theme {
+  --color-cream: #fff8ec;
+  --color-ink: #2b2a4c;
+  --color-muted: #66658a;
+  --color-line: #ece6f6;
+  --color-gold: #ffc93c;
+  --color-gold-deep: #f2a900;
+  --color-good: #18a874;
+  --font-sans: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, -apple-system, Roboto,
+    "Noto Sans Tamil", "Tamil Sangam MN", sans-serif;
+  --shadow-chunky: 0 5px 0 rgb(43 42 76 / 0.08), 0 10px 24px rgb(43 42 76 / 0.07);
+}
+
+html {
+  color-scheme: light;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  @apply bg-cream font-sans text-ink antialiased;
+}
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Mascot ---------- */
+.mascot-body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mascot-float 3.2s ease-in-out infinite;
+}
+.mascot.talking .mascot-body {
+  animation: mascot-bounce 0.46s ease-in-out infinite;
+}
+.mascot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-blink 4.6s infinite;
+}
+.mascot-mouth-open {
+  display: none;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.mascot.talking .mascot-mouth-open {
+  display: block;
+  animation: mascot-chatter 0.22s ease-in-out infinite alternate;
+}
+.mascot.talking .mascot-mouth-smile {
+  display: none;
+}
+.mascot-shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.mascot.talking .mascot-shadow {
+  animation: mascot-shadow 0.46s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  50% { transform: translateY(-5px); }
+}
+@keyframes mascot-bounce {
+  0%, 100% { transform: translateY(0) scale(1.03, 0.97); }
+  50% { transform: translateY(-14px) scale(0.98, 1.03); }
+}
+@keyframes mascot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes mascot-chatter {
+  from { transform: scaleY(0.45); }
+  to { transform: scaleY(1); }
+}
+@keyframes mascot-shadow {
+  50% { transform: scale(0.8); opacity: 0.6; }
+}
+
+/* ---------- Little celebrations ---------- */
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.animate-pop {
+  animation: pop 0.35s ease-out;
+}
+@keyframes award-in {
+  from { transform: scale(0.6) rotate(-8deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+.animate-award-in {
+  animation: award-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+@keyframes rays {
+  to { transform: rotate(360deg); }
+}
+.animate-rays {
+  animation: rays 14s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
